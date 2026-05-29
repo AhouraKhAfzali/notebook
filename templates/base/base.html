@@ -1,0 +1,38 @@
+{% load bootstrap5 static %}
+<!-- Home template -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap styles -->
+    {% bootstrap_css %}
+    <!-- Local styles -->
+    <link rel="stylesheet" href="{% static 'css/root.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <!-- Icons -->
+    <link rel="stylesheet" href="{% static 'font_awesome/fontawesome-free-6.7.2-web/css/all.min.css' %}">
+</head>
+<body>
+<!-- Navbar -->
+{% include 'partials/navbar.html' %}
+<!-- Main Content -->
+<div class="wrapper">
+    <div class="main-content my-5 px-5">
+    {% block content %}
+        <!-- Add content here -->
+    {% endblock %}
+    </div>
+</div>
+<!-- Footer -->
+{% include 'partials/footer.html' %}
+<!-- Messages -->
+{% bootstrap_messages %}
+<!-- Scripts -->
+{% bootstrap_javascript %}
+</body>
+</html>

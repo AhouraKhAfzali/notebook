@@ -1,0 +1,39 @@
+{% extends 'base/dashboard.html' %}
+{% block title %}
+    Student Profile
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="dashboard-area">
+            <h2 class="m-3">Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="dashboard-area">
+                    <div class="dashboard-box shadow-sm rounded">
+                        <h5>My Courses</h5>
+                        {% for course in courses %}
+                        	<div class="row align-items-center border-bottom border-top p-2">
+                                <div class="col">{{ course.name }}</div>
+                                <div class="col">
+                                    <span class="fw-bold">{{ course.teacher.first_name }} {{ course.teacher.last_name }}</span>
+                                </div>
+                                <div class="col">
+                                    <a href="{% url 'dash-students-courses-show' course.id %}" type="button" class="btn btn-primary">Details</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="dashboard-area">
+                    <div class="dashboard-box shadow-sm rounded">
+                        <h5>Box 2</h5>
+                        <p>More content...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+.dash_form{
+    width: 80%;
+    margin: 5% 10%;
+    padding: 30px;
+    background-color: white;
+}
+.dash_form button{
+    padding: 16px;
+}

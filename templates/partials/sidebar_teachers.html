@@ -1,0 +1,114 @@
+{% load static %}
+<!-- Toggle Button -->
+<button class="btn btn-light toggle-btn shadow-sm" onclick="toggleSidebar()">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header p-3">
+        <div class="d-flex align-items-center justify-content-between">
+            <h3 class="mb-0">Teacher Dashboard</h5>
+            <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+                <button class="btn btn-sm btn-light">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile -->
+    <div class="p-3 border-bottom">
+        <div class="d-flex align-items-center">
+            {% if request.user.avatar %}
+            	<img src="{{ request.user.avatar.url }}" class="rounded-circle me-2" alt="User">
+            {% else %}
+                <img src="{% static 'img/student_default.png' %}" class="rounded-circle me-2" alt="User">
+            {% endif %}
+            <div>
+                <h6 class="mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</h6>
+                <small class="text-muted">
+                    {% if request.user.is_active %}
+                        <span class="user-status bg-success"></span>
+                        Active
+                    {% else %}
+                        <span class="user-status bg-danger"></span>
+                        Not Active
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav flex-column mt-2">
+        <a href="{% url 'home' %}" class="nav-link">
+            <i class="fa-solid fa-home ms-2"></i>
+            Home Page
+        </a>
+        <a href="{% url 'dash-teachers-profile' %}" class="nav-link">
+            <i class="fa-solid fa-user ms-2"></i>
+            My Profile
+        </a>
+        <a href="{% url 'change_password' %}" class="nav-link">
+            <i class="fa-solid fa-key ms-2"></i>
+            Change Password
+        </a>
+        <a href="{% url 'logout' %}" class="nav-link">
+            <i class="fa-solid fa-sign-out ms-2"></i>
+            Log Out
+        </a>
+        <a href="{% url 'delete_account' %}" class="nav-link">
+            <i class="fa-solid fa-trash-can ms-2"></i>
+            Delete Account
+        </a>
+        <div class="p-3 border-bottom"></div>
+        <a href="{% url 'dash-teachers-courses-mine' %}" class="nav-link">
+            <i class="fa-solid fa-book ms-2"></i>
+            My Courses
+        </a>
+        <a href="{% url 'dash-teachers-courses-create' %}" class="nav-link">
+            <i class="fa-solid fa-square-plus ms-2"></i>
+            Create New Course
+        </a>
+        <a href="" class="nav-link">
+            <i class="fa-solid fa-pencil ms-2"></i>
+            Received Assignments
+        </a>
+    </nav>
+
+    <!-- Recent Activity -->
+    <div class="p-3 mt-3">
+        <h6 class="text-muted mb-3">Recent Activity</h6>
+        <div class="d-flex align-items-center mb-3">
+            <div class="bg-light rounded p-2 ms-2">
+                <i class="fa-solid fa-file fa-fw"></i>
+            </div>
+            <div>
+                <small class="d-block">Updated Project Files</small>
+                <small class="text-muted">2 hours ago</small>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="bg-light rounded p-2 ms-2">
+                <i class="fa-solid fa-square-check fa-fw"></i>
+            </div>
+            <div>
+                <small class="d-block">Team Meeting</small>
+                <small class="text-muted">4 hours ago</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.querySelector('.toggle-btn');
+        sidebar.classList.toggle('collapsed');
+        toggleBtn.classList.toggle('collapsed');
+    }
+</script>

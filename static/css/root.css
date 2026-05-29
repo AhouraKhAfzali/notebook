@@ -1,0 +1,179 @@
+/* ---------------- Base Colors ---------------- */
+/*:root {*/
+/*  --color-primary: #ff851a;   !* orange *!*/
+/*  --color-secondary: #242730; !* green *!*/
+/*  --color-blue: #007bff;    !* red *!*/
+/*  --color-dark: #242730;      !* dark gray *!*/
+/*  --color-light: #ecf0f1;     !* light gray *!*/
+/*}*/
+
+/* ---------------- Base Fonts ---------------- */
+
+/* Loading base fonts */
+@font-face {
+    font-family: 'kalameh_black';
+    src: url('../fonts/Kalameh-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'kalameh_bold';
+    src: url('../fonts/Kalameh-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'kalameh_regular';
+    src: url('../fonts/Kalameh-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'kalameh_light';
+    src: url('../fonts/Kalameh-ExtraLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ---------------- Base Styles ---------------- */
+
+/* Base styling */
+body {
+    font-family: 'kalameh_regular', sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: whitesmoke;
+}
+* {
+    box-sizing: border-box !important;
+}
+h1, h2, h3{
+    font-family: 'kalameh_black', serif;
+    color: #0d6efd;
+}
+h4, h5 {
+    font-family: 'kalameh_bold', serif;
+}
+
+/* Messages */
+.alert {
+    max-width: 400px;
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: calc(100% - 2rem);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/*!* ---------------- Base Primary Button ---------------- *!*/
+
+/*!* Base primary button *!*/
+/*.btn-primary {*/
+/*    background-color: #ff851a !important;*/
+/*    border-color: #ff851a !important;*/
+/*    color: #fff !important;*/
+/*}*/
+
+/*!* Hover *!*/
+/*.btn-primary:hover {*/
+/*    background-color: #ffaa67 !important;*/
+/*    border-color: #ffaa67 !important;*/
+/*    color: #fff !important;*/
+/*}*/
+
+/*!* Focus *!*/
+/*.btn-primary:focus {*/
+/*    background-color: #ffaa67 !important;*/
+/*    border-color: #ffaa67 !important;*/
+/*    color: #fff !important;*/
+/*    box-shadow: 0 0 0 0.25rem rgba(255, 102, 0, 0.5) !important;*/
+/*}*/
+
+/*!* Active *!*/
+/*.btn-primary:active,*/
+/*.btn-primary.active,*/
+/*.show > .btn-primary.dropdown-toggle {*/
+/*    background-color: #ffb380 !important;*/
+/*    border-color: #ffb380 !important;*/
+/*    color: #fff !important;*/
+/*}*/
+
+/*!* Disabled *!*/
+/*.btn-primary:disabled,*/
+/*.btn-primary.disabled {*/
+/*    background-color: #ffb380 !important;*/
+/*    border-color: #ffb380 !important;*/
+/*    color: #fff !important;*/
+/*}*/
+
+/*!* ---------------- Outline Primary Button ---------------- *!*/
+
+/*!* Base outline primary *!*/
+/*.btn-outline-primary {*/
+/*    color: #ff851a !important;*/
+/*    border-color: #ff851a !important;*/
+/*    background-color: transparent !important;*/
+/*}*/
+
+/*!* Hover *!*/
+/*.btn-outline-primary:hover {*/
+/*    background-color: #ffaa67 !important;*/
+/*    border-color: #ffaa67 !important;*/
+/*    color: #fff !important;*/
+/*}*/
+
+/*!* Focus *!*/
+/*.btn-outline-primary:focus {*/
+/*    background-color: #ffaa67 !important;*/
+/*    border-color: #ffaa67 !important;*/
+/*    color: #fff !important;*/
+/*    box-shadow: 0 0 0 0.25rem rgba(255, 102, 0, 0.5) !important;*/
+/*}*/
+
+/*!* Active *!*/
+/*.btn-outline-primary:active,*/
+/*.btn-outline-primary.active,*/
+/*.show > .btn-outline-primary.dropdown-toggle {*/
+/*    background-color: #ffb380 !important;*/
+/*    border-color: #ffb380 !important;*/
+/*    color: #fff !important;*/
+/*}*/
+
+/*!* Disabled *!*/
+/*.btn-outline-primary:disabled,*/
+/*.btn-outline-primary.disabled {*/
+/*    background-color: transparent !important;*/
+/*    border-color: #ffb380 !important;*/
+/*    color: #ffb380 !important;*/
+/*}*/
+
+/*!* ---------------- Base Text Colors ---------------- *!*/
+/*.text-primary {*/
+/*    color: var(--color-primary) !important;*/
+/*}*/
+/*.text-success {*/
+/*    color: #00c489 !important;*/
+/*}*/
+/*.text-danger {*/
+/*    color: #c21a49 !important;*/
+/*}*/
+/*.text-info {*/
+/*    color: #007bff !important;*/
+/*}*/
+
+/*!* ---------------- Base Text Backgrounds ---------------- *!*/
+/*.bg-primary {*/
+/*    background-color: #ff851a !important;*/
+/*}*/
+/*.bg-success {*/
+/*    background-color: #00c489 !important;*/
+/*}*/
+/*.bg-danger {*/
+/*    background-color: #c21a49 !important;*/
+/*}*/
+/*.bg-info {*/
+/*    background-color: #007bff !important;*/
+/*}*/
+

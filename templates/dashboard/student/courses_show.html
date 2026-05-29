@@ -1,0 +1,115 @@
+{% extends 'base/dashboard.html' %}
+{% load static %}
+{% block title %}
+	Course Center: {{ object.name }}
+{% endblock %}
+{% block content %}
+	<div class="container">
+        <div class="dashboard-area">
+            <h1>{{ object.name }}</h1>
+        </div>
+        <div class="row">
+            <!-- Course Main Details Section -->
+            <div class="col-lg-4">
+                <div class="dashboard-area">
+                    <div class="dashboard-container shadow-sm rounded">
+                        {% if object.cover %}
+                        	<img class="w-100 rounded mb-3" src="{{ object.cover.url }}" alt="{{ object.name }}" style="aspect-ratio: 1/1; object-fit: cover">
+                            {% else %}
+                            <img class="w-100 rounded mb-3" src="{% static 'img/courses_default.jpg' %}" alt="{{ object.name }}" style="aspect-ratio: 1/1; object-fit: cover">
+                        {% endif %}
+                        <h3>Main Information</h3>
+                        <br>
+                        <p class="fw-bold">Teacher: {{ object.teacher.first_name }} {{ object.teacher.last_name }}</p>
+                        <hr>
+                        <p>Institution: {{ object.university.name }}</p>
+                        <p>Subject: {{ object.subject.name }}</p>
+                        <hr>
+                        {% if object.is_active %}
+                        	<p class="fw-bold">Course Status: <span class="text-success">Active</span></p>
+                            {% else %}
+                            <p class="fw-bold">Course Status: <span class="text-danger">Not Active</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- Course Secondary Details Section -->
+            <div class="col-lg-8">
+                <!-- Tabs Pills Area -->
+                <div class="m-2">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active m-2" id="pills-contents-tab" data-bs-toggle="pill" data-bs-target="#pills-contents" type="button" role="tab" aria-controls="pills-contents" aria-selected="true">Contents</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link m-2" id="pills-students-tab" data-bs-toggle="pill" data-bs-target="#pills-students" type="button" role="tab" aria-controls="pills-students" aria-selected="false">Students</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link m-2" id="pills-assignments-tab" data-bs-toggle="pill" data-bs-target="#pills-assignments" type="button" role="tab" aria-controls="pills-assignments" aria-selected="false">Assignments</button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Tabs Content Area -->
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-contents" role="tabpanel" aria-labelledby="pills-contents-tab">
+                        <div class="dashboard-area">
+                            <h3>Course Contents</h3>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-students" role="tabpanel" aria-labelledby="pills-students-tab">
+                        <h3 class="m-3">Course Students</h3>
+                        {% for student in object.students.all %}
+                            <div class="dashboard-area">
+                                <div class="dashboard-container product-card shadow-sm rounded">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2">
+                                            {% if student.avatar %}
+                                        	    <img src="{{ student.avatar }}" alt="{{ student.first_name }} {{ student.last_name }}" class="product-image">
+                                            {% else %}
+                                                <img src="{% static 'img/student_default.png' %}" alt="{{ student.first_name }} {{ student.last_name }}" class="product-image">
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6 class="fw-bold">{{ student.first_name }} {{ student.last_name }}</h6>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span class="text-muted">Phone: {{ student.phone_number }}</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="" type="button" class="btn btn-primary"> See Profile <i class="fa-solid fa-eye fa-fw"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane fade" style="box-sizing: border-box" id="pills-assignments" role="tabpanel" aria-labelledby="pills-assignments-tab">
+                        <div class="dashboard-area">
+                            <h3>Course Assignments</h3>
+                        </div>
+                        {% for assignment in assignments %}
+                            <div class="dashboard-area">
+                                <div class="dashboard-container product-card shadow-sm w-100 rounded">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3">
+                                            <h6 class="fw-bold">{{ assignment.title }}</h6>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span class="text-muted">{{ assignment.status }}</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="{% url 'dash-students-submissions-create' assignment.id %}" type="button" class="btn btn-outline-primary">Submit Answer</a>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="{% url 'dash-students-assignments-show' assignment.id %}" type="button" class="btn btn-primary"> My Submissions <i class="fa-solid fa-eye fa-fw"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

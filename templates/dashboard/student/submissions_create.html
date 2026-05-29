@@ -1,0 +1,16 @@
+{% extends 'base/dashboard.html' %}
+{% load bootstrap5 %}
+{% block title %}
+    Submit Assignment
+{% endblock %}
+{% block content %}
+	<div class="container">
+        <form method="post" action="{% url 'dash-students-submissions-create' assignment %}" novalidate class="dash_form shadow-sm rounded" enctype="multipart/form-data">
+            <h1 class="text-center">Submit Your Work!</h1>
+            <br>
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" name="btn" value="submit" class="btn btn-outline-primary w-100">Done</button>
+        </form>
+    </div>
+{% endblock %}

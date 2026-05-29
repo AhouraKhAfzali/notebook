@@ -1,0 +1,36 @@
+.dashboard-area {
+    /*margin: 16px;*/
+    padding: 1rem;
+    height: auto;                 /* auto height */
+}
+.dashboard-box {
+    padding: 24px;
+    /*margin: 16px;*/
+    background-color: white;    /* Bootstrap light gray */
+    height: 250px;                /* fixed height */
+    overflow-y: auto;             /* scroll vertically if content exceeds */
+}
+.dashboard-box::-webkit-scrollbar {
+    width: 6px;
+}
+.dashboard-box::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 3px;
+}
+
+.dashboard-container {
+    padding: 24px;
+    /*margin: 16px;*/
+    background-color: white;    /* Bootstrap light gray */
+    height: auto;                 /* auto height */
+}
+.dashboard-container::-webkit-scrollbar {
+    width: 6px;
+}
+.dashboard-container::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 3px;
+}
+.rounded {
+    border-radius: 16px !important;
+}

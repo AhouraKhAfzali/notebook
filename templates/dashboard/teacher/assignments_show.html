@@ -1,0 +1,132 @@
+{% extends 'base/dashboard.html' %}
+{% load static bootstrap5 %}
+{% block title %}
+    {{ assignment.title }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1 class="m-3">{{ object.name }}</h1>
+        <!-- Tabs Pills Area -->
+        <div class="m-2">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active m-2" id="pills-graded-tab" data-bs-toggle="pill" data-bs-target="#pills-graded" type="button" role="tab" aria-controls="pills-graded" aria-selected="true"> Reviewed <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link m-2" id="pills-ungraded-tab" data-bs-toggle="pill" data-bs-target="#pills-ungraded" type="button" role="tab" aria-controls="pills-ungraded" aria-selected="false"> Not Reviewed <i class="fa-solid fa-magnifying-glass-minus fa-fw"></i></button>
+                </li>
+            </ul>
+        </div>
+        <!-- Tabs Content Area -->
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Graded Submissions -->
+            <div class="tab-pane fade show active" id="pills-graded" role="tabpanel" aria-labelledby="pills-graded-tab">
+                <div class="dashboard-area">
+                    <h2>Reviewed Submissions</h2>
+                </div>
+                <div id="accordion">
+                    {% for submission in submissions_graded %}
+                        <div class="dashboard-area">
+                            <div class="dashboard-container product-card shadow-sm rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        {% if submission.student.avatar %}
+                                            <img src="{{ submission.student.avatar }}" alt="{{ submission.student.first_name }} {{ submission.student.last_name }}" class="product-image">
+                                        {% else %}
+                                            <img src="{% static 'img/student_default.png' %}" alt="{{ submission.student.first_name }} {{ submission.student.last_name }}" class="product-image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold">{{ submission.student.first_name }} {{ submission.student.last_name }}</h6>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="text-muted">Score: {{ submission.grade }}</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse{{ submission.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ submission.id }}"> Details <i class="fa fa-solid fa-arrow-down fa-fw"></i></a>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse{{ submission.id }}">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-9 mb-3">
+                                            <p class="text-muted">Student's Message</p>
+                                            <div class="card card-body">
+                                                {{ submission.text }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mb-3 text-center">
+                                            {% if submission.file %}
+                                                <p class="text-muted">Submission file has been uploaded</p>
+                                                <a href="{{ submission.file.url }}" download="{{ submission.file.url }}" class="btn btn-outline-primary p-3 w-100"> Download File <i class="fa fa-solid fa-download fa-fw"></i></a>
+                                            {% else %}
+                                                <p class="text-muted">No file has been uploaded</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="text-muted">Teacher's Feedback</p>
+                                    <div class="card card-body">
+                                        {{ submission.feedback }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Ungraded Submissions -->
+            <div class="tab-pane fade show" id="pills-ungraded" role="tabpanel" aria-labelledby="pills-ungraded-tab">
+                <div class="dashboard-area">
+                    <h2>Not Reviewed Submissions</h2>
+                </div>
+                <div id="accordion">
+                    {% for submission in submissions_ungraded %}
+                        <div class="dashboard-area">
+                            <div class="dashboard-container product-card shadow-sm rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        {% if submission.student.avatar %}
+                                            <img src="{{ submission.student.avatar }}" alt="{{ submission.student.first_name }} {{ submission.student.last_name }}" class="product-image">
+                                        {% else %}
+                                            <img src="{% static 'img/student_default.png' %}" alt="{{ submission.student.first_name }} {{ submission.student.last_name }}" class="product-image">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold">{{ submission.student.first_name }} {{ submission.student.last_name }}</h6>
+                                    </div>
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse{{ submission.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ submission.id }}"> Details <i class="fa fa-solid fa-arrow-down fa-fw"></i></a>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse{{ submission.id }}">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-9 mb-3">
+                                            <p class="text-muted">Student's Message</p>
+                                            <div class="card card-body">
+                                                {{ submission.text }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 mb-3 text-center">
+                                            {% if submission.file %}
+                                                <p class="text-muted">Submission file has been uploaded</p>
+                                            	<a href="{{ submission.file.url }}" download="{{ submission.file.url }}" class="btn btn-outline-primary p-3 w-100"> Download File <i class="fa fa-solid fa-download fa-fw"></i></a>
+                                                {% else %}
+                                                <p class="text-muted">No file has been uploaded</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <a href="{% url 'dash-teachers-submissions-grade' submission.id %}" class="btn btn-outline-primary p-3 w-100">Grade Submission</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

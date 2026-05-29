@@ -1,0 +1,9 @@
+from django.shortcuts import render
+from django.contrib import messages
+
+# Create your views here.
+def home(request):
+    return render(request, "home/home.html")
+
+def error(request):
+    return render(request, template_name="home/error.html")

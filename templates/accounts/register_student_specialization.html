@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+{% block title %}
+    ثبت نام دانشجویان
+{% endblock %}
+{% block content %}
+	<form method="post" action="{% url 'register_student_specialization' %}" novalidate class="register_form shadow-sm">
+        <h2 class="text-center">انتخاب گرایش</h2>
+        <br>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" name="btn" value="submit" class="btn btn-primary w-100">ثبت نام</button>
+        <br>
+        <br>
+        <p class="text-center">حساب کاربری دارید؟<a class="link-offset-2 link-underline link-underline-opacity-0 fw-bold" href="{% url 'login' %}"> وارد شوید </a></p>
+    </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% load bootstrap5 %}
+{% block title %}
+    Students Registration
+{% endblock %}
+{% block content %}
+	<form method="post" action="{% url 'register_student' %}" novalidate class="register_form shadow-sm">
+        <h1 class="text-center mb-3">Students Registration</h1>
+        <br>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" name="btn" value="submit" class="btn btn-primary w-100 mb-3">Register</button>
+        <a class="btn btn-outline-primary w-100 mb-3" href="{% url 'register_teacher' %}">Teachers Registration</a>
+        <p class="text-center">Already have an account?<a class="link-offset-2 link-underline link-underline-opacity-0 fw-bold" href="{% url 'login' %}"> Login </a></p>
+    </form>
+{% endblock %}

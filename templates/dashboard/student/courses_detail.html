@@ -1,0 +1,87 @@
+{% extends 'base/dashboard.html' %}
+{% load static %}
+{% block title %}
+	Course Details: {{ object.name }}
+{% endblock %}
+{% block content %}
+	<div class="container">
+        <div class="dashboard-area">
+            <h1>{{ object.name }}</h1>
+        </div>
+        <div class="row">
+            <!-- Class Main Details Section -->
+            <div class="col-lg-4">
+                <div class="dashboard-area">
+                    <div class="dashboard-container shadow-sm rounded">
+                        {% if object.cover %}
+                        	<img class="w-100 rounded mb-3" src="{{ object.cover.url }}" alt="{{ object.name }}" style="aspect-ratio: 1/1; object-fit: cover">
+                            {% else %}
+                            <img class="w-100 rounded mb-3" src="{% static 'img/courses_default.jpg' %}" alt="{{ object.name }}" style="aspect-ratio: 1/1; object-fit: cover">
+                        {% endif %}
+                        <h3>Main Information</h3>
+                        <br>
+                        <p class="fw-bold">Teacher: {{ object.teacher.first_name }} {{ object.teacher.last_name }}</p>
+                        <hr>
+                        <p>Institution: {{ object.university.name }}</p>
+                        <p>Subject: {{ object.Subject.name }}</p>
+                        <hr>
+                        {% if object.is_active %}
+                        	<p class="fw-bold">Course Status: <span class="text-success">Active</span></p>
+                            {% else %}
+                            <p class="fw-bold">Course Status: <span class="text-danger">Not Active</span></p>
+                        {% endif %}
+                        <p class="text-info">This course has been created by teacher "{{ object.teacher.first_name }} {{ object.teacher.last_name }}". In order to enroll for it, your enrollment request must first be accepted by the teacher.</p>
+                        <a href="{% url 'dash-students-courses-enroll' object.id %}" class="btn btn-outline-primary w-100">Send Request</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Class Secondary Details Section -->
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-card text-center bg-white p-4 m-3 shadow-sm rounded">
+                            <i class="fa-solid fa-people-group fs-1 text-info mb-3"></i>
+                            <h3 class="fs-2 fw-bold">48</h3>
+                            <p class="text-muted mb-0">Enrolled Students</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card text-center bg-white p-4 m-3 shadow-sm rounded">
+                            <i class="fa-solid fa-pencil-ruler fs-1 text-success mb-3"></i>
+                            <h3 class="fs-2 fw-bold">36</h3>
+                            <p class="text-muted mb-0">Submitted Assignments</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card text-center bg-white p-4 m-3 shadow-sm rounded">
+                            <i class="fa-solid fa-star fs-1 text-warning mb-3"></i>
+                            <h3 class="fs-2 fw-bold">17.25</h3>
+                            <p class="text-muted mb-0">Average scores</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-area">
+                    <h3>Course Description</h3>
+                </div>
+                <div class="dashboard-area">
+                    <div class="dashboard-container shadow-sm rounded">
+                        {% if object.description %}
+                            <p class="text-muted">{{ object.description }}</p>
+                        {% else %}
+                            <p class="fw-bold fs-5 text-primary">There are currently no descriptions available for this Course!</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="dashboard-area">
+                    <h3>Send Enrollment Request</h3>
+                </div>
+                <div class="dashboard-area">
+                    <div class="dashboard-container shadow-sm rounded">
+                        <p class="fw-bold fs-5 text-danger">Note: Please read the course description and specifications thoroughly and ensure that they are accurate before submitting a request for course enrollment.</p>
+                        <a href="{% url 'dash-students-courses-enroll' object.id %}" class="btn btn-primary w-100">Send Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

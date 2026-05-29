@@ -1,0 +1,16 @@
+{% extends 'base/dashboard.html' %}
+{% load bootstrap5 %}
+{% block title %}
+    Grade Submission
+{% endblock %}
+{% block content %}
+	<div class="container">
+        <form method="post" action="{% url 'dash-teachers-submissions-grade' pk %}" novalidate class="dash_form shadow-sm rounded" enctype="multipart/form-data">
+            <h1 class="text-center">Grade This Submission</h1>
+            <br>
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" name="btn" value="submit" class="btn btn-outline-primary w-100">Done</button>
+        </form>
+    </div>
+{% endblock %}
