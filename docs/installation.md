@@ -447,9 +447,4 @@ Restart the development server.
 After successfully installing Notebook, continue with the following documentation:
 
 - `architecture.md`
-- `configuration.md`
-- `project_structure.md`
-- `authentication.md`
-- `database.md`
-- `api.md`
-- `deployment.md`
+- `apps.md`

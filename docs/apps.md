@@ -2,23 +2,27 @@
 
 ## Overview
 
-Notebook follows a modular application architecture where each Django application is responsible for a specific area of the system.
+Notebook is organized as a collection of independent Django applications, each responsible for a specific part of the platform. Rather than concentrating all functionality in a few large applications, Notebook separates responsibilities into smaller, focused modules.
 
-Instead of placing all functionality into one or two large applications, the project separates responsibilities into multiple independent apps. This organization improves maintainability, readability, scalability, and collaboration.
+Applications fall into three categories:
 
-The project currently consists of three categories of applications:
+* **Core applications**, which provide infrastructure and user-facing interfaces.
+* **Domain applications**, which implement the platform's business logic.
+* **Third-party and Django applications**, which provide framework functionality and external integrations.
 
-- Core Applications
-- Domain Applications
-- Django Built-in Applications
+This modular organization makes the project easier to maintain, test, and extend while keeping responsibilities clearly defined.
+
+> **Project Status:** 🚧 Active Development
+>
+> The application structure documented here reflects the current implementation. New applications and domains may be introduced as Notebook evolves.
 
 ---
 
 # Application Structure
 
-```
+```text
 notebook/
-
+│
 ├── accounts/
 ├── api/
 ├── dashboard/
@@ -33,96 +37,78 @@ notebook/
 └── notebook/
 ```
 
-Each application owns its own models, views, URLs, templates, forms, and administrative configuration whenever appropriate.
-
 ---
 
 # Core Applications
 
-Core applications provide infrastructure and common functionality used throughout the project.
+Core applications provide the infrastructure and user interfaces that make up the platform. While they coordinate requests and render responses, they generally avoid containing business logic themselves.
+
+## notebook
+
+The `notebook` package is the Django project configuration.
+
+It contains the global project settings, root URL configuration, middleware, WSGI/ASGI entry points, and other project-level configuration. It serves as the application's bootstrap layer and should never contain business logic.
 
 ---
 
-# notebook
+## home
 
-**Type**
+The `home` application provides the public-facing portion of Notebook.
 
-Project Configuration
+Typical responsibilities include:
 
-**Responsibilities**
+* Landing pages
+* Homepage
+* Public information
+* General navigation
 
-- Global Django configuration
-- Settings
-- Root URL configuration
-- WSGI configuration
-- ASGI configuration
-- Middleware configuration
-- Installed applications
-- Static and media configuration
-
-This package contains the project's global configuration and should never contain business logic.
+This application is intended for unauthenticated visitors and acts as the entry point into the platform.
 
 ---
 
-# home
+## accounts
 
-**Purpose**
+The `accounts` application manages user identities and authentication.
 
-Public-facing pages.
+Its responsibilities include:
 
-Responsibilities include:
+* Custom user model
+* Authentication
+* Authorization
+* Registration
+* Login and logout
+* Password management
+* User profile management
 
-- Landing page
-- Homepage
-- Public navigation
-- Static informational pages
-
-This application serves as the public entry point of the platform.
-
----
-
-# accounts
-
-**Purpose**
-
-Identity and authentication management.
-
-Responsibilities include:
-
-- Custom user model
-- User registration
-- Login
-- Logout
-- Password management
-- User profile management
-- Authentication
-- Authorization
-
-This application acts as the authentication provider for every other application.
-
-No business-specific logic should be implemented here.
+The application provides identity management only. Academic business rules remain inside the appropriate domain applications.
 
 ---
 
-# dashboard
+## dashboard
 
-**Purpose**
+The `dashboard` application provides authenticated users with their workspace inside Notebook.
 
-Authenticated user workspace.
+Unlike traditional Django applications, the dashboard does **not own** academic data. Instead, it presents information obtained from the domain layer.
 
-Responsibilities include:
+Notebook currently provides two primary dashboard experiences.
 
-- User dashboard
-- Personal overview
-- Statistics
-- Quick actions
-- Navigation hub
+### Teacher Dashboard
 
-The dashboard aggregates information from multiple applications rather than owning the underlying data.
+The teacher dashboard is designed for instructors and academic staff.
+
+It provides interfaces for managing educational resources such as courses, learning materials, assignments, and other academic entities through the services exposed by the domain applications.
+
+### Student Dashboard
+
+The student dashboard focuses on the learning experience.
+
+Students can access their enrolled courses, educational content, assignments, and other resources made available to them.
+
+Although both dashboards may interact with similar business entities, each one provides workflows tailored to its users.
 
 ---
 
-# api
+## api
 
 **Purpose**
 
@@ -142,359 +128,96 @@ Responsibilities include:
 
 The API should expose existing business functionality rather than implementing separate business rules.
 
+
 ---
 
 # Domain Applications
 
-The business logic of Notebook lives inside the **domains** package.
+The `domains` package contains the core business logic of Notebook.
 
-```
-domains/
+Each domain represents a business area of the educational platform and is responsible for implementing its own data models, business rules, validation, and services.
 
-academia/
+Unlike the presentation applications, domain applications own the academic data and define how that data behaves.
 
-contents/
-
-learning/
-
-work/
-```
-
-Each domain represents a business concept rather than a technical layer.
-
-This separation reduces coupling and simplifies future expansion.
+Presentation applications interact with domains through their public services rather than manipulating models directly.
 
 ---
 
-# Academia
+## academia
 
-## Purpose
+The **Academia** domain represents the academic structure of the platform.
 
-Educational organization.
+It manages the entities that define an educational institution, including courses, teachers, students, enrollments, and other organizational relationships.
 
-Current and future responsibilities include:
-
-- Academic entities
-- Educational organization
-- Courses
-- Students
-- Teachers
-- Class relationships
-
-Academia acts as the structural backbone of the educational platform.
+As the project evolves, this domain will continue to serve as the foundation upon which the rest of the platform is built.
 
 ---
 
-# Learning
+## contents
 
-## Purpose
+The **Contents** domain manages educational resources delivered to learners.
 
-Learning workflow.
+This includes rich-text materials, notes, documents, media, and other learning resources associated with courses.
 
-Responsibilities include:
-
-- Learning process
-- Lessons
-- Educational progress
-- Exercises
-- Learning activities
-
-Future versions may also include:
-
-- Progress tracking
-- Learning analytics
-- Personalized recommendations
+The domain focuses on the creation, organization, and delivery of educational content rather than the learning process itself.
 
 ---
 
-# Contents
+## learning
 
-## Purpose
+The **Learning** domain represents the learning process.
 
-Educational content management.
+It is responsible for the workflows that connect students with educational resources and track their progress through learning activities.
 
-Responsibilities include:
-
-- Notes
-- Rich text content
-- Articles
-- Educational resources
-- Uploaded materials
-
-This application manages the educational resources consumed by learners.
+As Notebook grows, additional functionality such as progress tracking, learning analytics, and personalized learning experiences may become part of this domain.
 
 ---
 
-# Work
+## work
 
-## Purpose
+The **Work** domain manages academic work completed by students.
 
-Practical educational work.
+Typical responsibilities include assignments, homework, tasks, submissions, deadlines, and grading-related workflows.
 
-Responsibilities include:
-
-- Assignments
-- Homework
-- Activities
-- Tasks
-- Student submissions
-
-The Work domain focuses on educational tasks rather than learning materials.
-
----
-
-# Application Dependencies
-
-The dependency direction should remain as follows:
-
-```
-                 notebook
-
-                     │
-
-     ┌───────────────┼───────────────┐
-
-     ▼               ▼               ▼
-
- accounts        dashboard          api
-
-                     │
-
-                     ▼
-
-             Domain Applications
-
-      ┌──────────┬──────────┬──────────┐
-
-      ▼          ▼          ▼          ▼
-
- academia   learning   contents    work
-```
-
-Business domains should not become tightly coupled to one another.
-
-Whenever communication is required, it should occur through clearly defined interfaces.
-
----
-
-# Communication Between Applications
-
-Applications should communicate through:
-
-- Django ORM relationships
-- Service functions
-- Shared utilities
-- Signals (when appropriate)
-
-Applications should avoid:
-
-- Circular imports
-- Direct dependencies on internal implementation details
-- Cross-app template rendering
-- Copying business logic
-
----
-
-# URL Ownership
-
-Every application has its own URL configuration.
-
-```
-accounts/
-
-    urls.py
-
-dashboard/
-
-    urls.py
-
-api/
-
-    urls.py
-
-learning/
-
-    urls.py
-```
-
-The project URL configuration should only include application URLs.
-
----
-
-# Templates
-
-Applications should contain their own templates whenever those templates belong exclusively to that application.
-
-Shared templates should reside inside the global templates directory.
-
-Example:
-
-```
-templates/
-
-accounts/
-
-dashboard/
-
-learning/
-
-contents/
-```
-
-This organization keeps templates close to the business logic they represent.
-
----
-
-# Static Files
-
-Reusable assets should be placed inside the global static directory.
-
-Examples include:
-
-- CSS
-- JavaScript
-- Images
-- Icons
-
-Application-specific static files may also be used where appropriate.
-
----
-
-# Models
-
-Every application owns its own models.
-
-Relationships between applications should remain meaningful and minimal.
-
-A model should never exist simply because another application requires it.
-
-Instead, models should represent real business entities.
-
----
-
-# Forms
-
-Forms belong to the application that owns the corresponding models.
-
-- Registration forms → Accounts
-- Content forms → Contents
-- Assignment forms → Work
-
----
-
-# Permissions
-
-Permissions should remain close to the business domain.
-
-Accounts
-
-- Login
-- Registration
-- Password changes
-
-Learning
-
-- Lesson access
-- Progress updates
-
-Contents
-
-- Content editing
-- Content publishing
-
-Work
-
-- Assignment submission
-- Task management
-
----
-
-# Admin Integration
-
-Each application registers its own models inside its own `admin.py`.
-
-Administrative customizations remain inside the owning application.
+Its primary focus is the lifecycle of academic work rather than educational content.
 
 ---
 
 # Design Principles
 
-Every application should satisfy the following principles.
+Every application in Notebook is expected to follow several core principles:
 
-## Single Responsibility
+* Maintain a single, well-defined responsibility.
+* Keep business logic close to the domain that owns it.
+* Minimize coupling between applications.
+* Expose reusable functionality through well-defined services.
+* Remain extensible as the platform grows.
 
-Each application should solve one primary business problem.
-
----
-
-## High Cohesion
-
-Related functionality should remain together.
+These principles help ensure that new functionality can be added without increasing the complexity of existing applications.
 
 ---
 
-## Low Coupling
+# Future Expansion
 
-Applications should know as little as possible about one another.
+The modular structure of Notebook allows additional applications to be introduced without significantly affecting the existing architecture.
 
----
+Examples of future domain applications include:
 
-## Reusability
+* Examinations
+* Grading
+* Notifications
+* Messaging
+* Reports
+* Analytics
 
-Business logic should be reusable by:
-
-- Django Views
-- REST API
-- Future CLI tools
-- Background tasks
-
----
-
-## Scalability
-
-New domains should be added without requiring major architectural changes.
-
-Future examples include:
-
-```
-domains/
-
-exams/
-
-notifications/
-
-payments/
-
-certificates/
-
-messaging/
-
-analytics/
-```
-
----
-
-# Future Application Roadmap
-
-The current architecture allows additional applications to be introduced as the platform grows.
-
-Possible future applications include:
-
-| Application | Purpose |
-|------------|---------|
-| exams | Online examinations |
-| messaging | User communication |
-| notifications | Email and in-app notifications |
-| analytics | Learning analytics |
-| reports | Reporting system |
-| grading | Assessment and grading |
+The architecture is intentionally designed to support this gradual expansion while preserving clear boundaries between business domains.
 
 ---
 
 # Summary
 
-Notebook adopts a modular application architecture in which every Django application has a clearly defined responsibility.
+Notebook organizes its functionality into independent Django applications with clearly defined responsibilities.
 
-This separation makes the project easier to understand, easier to test, easier to extend, and significantly more maintainable as the codebase grows.
+Core applications provide the user interface and infrastructure, while domain applications implement the business logic that powers the educational platform.
 
-As development continues, new functionality will be added by extending the existing architecture rather than increasing the responsibilities of existing applications.
+This separation encourages maintainability, code reuse, and long-term scalability as Notebook continues to evolve.
