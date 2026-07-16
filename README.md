@@ -1,12 +1,18 @@
 # Notebook
 
-> A Django-powered online teaching and learning platform built with Bootstrap.
->
-> **🚧 Project Status: Under Active Development**
+> A modern learning management and educational platform built with Django, Django REST Framework, Bootstrap 5, and PostgreSQL.
 
-Notebook is a web-based educational platform designed to provide teachers and students with an organized environment for managing educational content, assignments, learning materials, and academic activities.
+> **⚠️ Project Status:** This project is currently under active development. Features, APIs, database schema, and user interfaces are continuously evolving and may change without notice. The project is **not yet production-ready**.
 
-The project is currently under active development. Core features are being implemented and improved continuously, and some parts of the system are incomplete or subject to change.
+---
+
+## Overview
+
+Notebook is a modular educational platform designed to simplify the management of educational content, courses, learning materials, and user interaction.
+
+Instead of being implemented as a single monolithic Django application, Notebook follows a modular architecture where each business domain is isolated into its own Django application. This approach improves maintainability, scalability, and long-term development.
+
+The project contains both traditional server-rendered pages and a RESTful API, allowing future integration with mobile applications, desktop clients, or modern JavaScript frontends.
 
 ---
 
@@ -14,17 +20,20 @@ The project is currently under active development. Core features are being imple
 
 Current and planned features include:
 
-* User authentication
-* Teacher dashboard
-* Student dashboard
-* Educational content management
-* Course organization
-* Assignment management
-* Learning resources
-* REST API
-* Responsive Bootstrap interface
-* Rich text editing
-* Modular Django architecture
+- User authentication
+- JWT Authentication for APIs
+- Student and instructor accounts
+- Educational content management
+- Learning resources
+- Course organization
+- Dashboard
+- Administrative panel
+- REST API
+- Responsive Bootstrap 5 interface
+- Modular domain-based architecture
+- Scalable project structure
+
+More features are continuously being developed.
 
 ---
 
@@ -32,30 +41,34 @@ Current and planned features include:
 
 ### Backend
 
-* Python
-* Django
-* Django REST Framework
+- Python
+- Django
+- Django REST Framework
+- JWT Authentication
 
 ### Frontend
 
-* Bootstrap 5
-* HTML5
-* CSS3
-* JavaScript
+- HTML5
+- CSS3
+- Bootstrap 5
+- JavaScript
 
 ### Database
 
-* SQLite (development)
+- SQLite (development)
 
-### Other Libraries
+### Other Technologies
 
-* CKEditor 5
-* Pillow
-* Additional packages listed in `requirements.txt`
+- Pillow
+- Django Filters
+- Whitenoise
+- Gunicorn (deployment)
 
 ---
 
 ## Project Structure
+
+The project follows a modular architecture.
 
 ```
 notebook/
@@ -63,29 +76,35 @@ notebook/
 ├── accounts/
 ├── api/
 ├── dashboard/
+│
 ├── domains/
 │   ├── academia/
 │   ├── contents/
 │   ├── learning/
 │   └── work/
-├── home/
-├── notebook/
-├── static/
+│
+├── core/
 ├── templates/
-├── utils/
-├── manage.py
-└── requirements.txt
+├── static/
+├── media/
+└── docs/
 ```
+
+Each domain is responsible for a specific part of the system and remains as independent as possible.
 
 ---
 
-## Installation
+## Getting Started
 
 Clone the repository.
 
 ```bash
 git clone https://github.com/AhouraKhAfzali/notebook.git
+```
 
+Move into the project.
+
+```bash
 cd notebook
 ```
 
@@ -97,16 +116,16 @@ python -m venv .venv
 
 Activate it.
 
-Windows
-
-```bash
-.venv\Scripts\activate
-```
-
 Linux/macOS
 
 ```bash
 source .venv/bin/activate
+```
+
+Windows
+
+```bash
+.venv\Scripts\activate
 ```
 
 Install dependencies.
@@ -131,57 +150,99 @@ python manage.py runserver
 
 ## Architecture
 
-The project follows Django's application-based architecture while organizing business logic into dedicated domain modules.
+Notebook is designed around domain separation rather than feature accumulation.
 
-Major components include:
+Instead of placing every model inside a single application, related functionality is grouped into dedicated domains.
 
-* Authentication
-* Dashboard
-* Educational domains
-* API layer
-* Shared utilities
+Example:
 
-This separation makes the project easier to maintain and extend as new educational features are introduced.
+```
+Domains
+│
+├── Academia
+│      ├── Courses
+│      ├── Teachers
+│      └── Students
+│
+├── Learning
+│      ├── Lessons
+│      ├── Exercises
+│      └── Progress
+│
+├── Contents
+│      ├── Notes
+│      ├── Articles
+│      └── Files
+│
+└── Work
+       ├── Tasks
+       ├── Assignments
+       └── Activities
+```
+
+This organization makes future expansion significantly easier while reducing coupling between components.
+
+---
+
+## REST API
+
+The project exposes a REST API powered by Django REST Framework.
+
+Authentication is handled using JSON Web Tokens (JWT).
 
 ---
 
 ## Development Status
 
-This project is **not yet production-ready**.
+The project is under continuous development.
 
-Some features are currently being implemented, while others may be redesigned as the architecture evolves.
+Current priorities include:
 
-Expect:
+- Expanding educational modules
+- Completing REST API endpoints
+- Improving user experience
+- Performance optimization
+- Documentation
 
-* New modules
-* Database changes
-* API changes
-* UI improvements
-* Performance optimizations
+Some modules may currently be incomplete or serve as placeholders for future functionality.
 
-Breaking changes may occur until the first stable release.
+---
+
+## Roadmap
+
+Planned improvements include:
+
+- Complete course management
+- Assignment workflow
+- Notifications
+- Messaging system
+- Activity tracking
+- Analytics dashboard
+- Docker support
+- Comprehensive unit testing
 
 ---
 
 ## Contributing
 
-Contributions, suggestions, and bug reports are welcome.
-
-Before submitting a pull request, please:
-
-* Follow Django best practices.
-* Keep code well documented.
-* Write clean and readable code.
-* Test new functionality.
+Contributions, suggestions, and issue reports are welcome.
 
 ---
 
 ## License
 
-This project currently has no license.
+This project currently does not specify a license.
 
 ---
 
 ## Author
 
-Developed by **Ahoura Khajeh Afzali**
+**Ahoura Khajeh Afzali**
+
+Backend developer and data science enthusiast
+
+---
+
+## Acknowledgements
+
+This project is being developed as a long-term educational platform and serves as both a learning project and a foundation for future production-ready educational systems.
