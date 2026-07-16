@@ -94,6 +94,20 @@ Each domain is responsible for a specific part of the system and remains as inde
 
 ---
 
+## Documentation
+
+Detailed documentation is available inside the **docs/** directory.
+
+| Document | Description |
+|-----------|-------------|
+| architecture.md | Project architecture and design decisions |
+| installation.md | Installation guide |
+| apps.md | Django applications |
+
+More documentations will be added in the future.
+
+---
+
 ## Getting Started
 
 Clone the repository.
