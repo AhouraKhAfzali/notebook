@@ -7,6 +7,7 @@ from utils.decorators import handle_service_errors
 # form imports
 from domains.work.forms import SubmissionForm
 # services imports
+from domains.contents.services import content_service
 from domains.learning.services import course_service, enrollment_service
 from domains.work.services import assignment_service, submission_service
 
@@ -39,6 +40,7 @@ def courses_detail(request, pk):
 def courses_show(request, pk):
     context = {
         "object": course_service.get_courses_by_id(pk),
+        "contents": content_service.filter_contents(course_obj_id=pk),
         "assignments": assignment_service.filter_assignments(course_obj_id=pk),
     }
     return render(request, template_name="dashboard/student/courses_show.html", context=context)

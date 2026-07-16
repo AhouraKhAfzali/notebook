@@ -55,28 +55,47 @@
                         <div class="dashboard-area">
                             <h3>Course Contents</h3>
                         </div>
+                        {% for content in contents.all %}
+                            <div class="dashboard-area">
+                                <div class="dashboard-container product-card shadow-sm w-100 rounded">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8 my-1">
+                                            <h6 class="fw-bold">{{ content.title }}</h6>
+                                        </div>
+                                        <div class="col-md-3 my-1">
+                                            <a href="{{ content.file.url }}" download="{{ content.file.url }}" type="button" class="btn btn-primary w-100"> Download <i class="fa-solid fa-download fa-fw"></i></a>
+                                        </div>
+                                        <div class="col-md-1 my-1">
+                                            <a href="" class="btn btn-outline-primary w-100"><i class="fa fa-map-pin"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                     <div class="tab-pane fade" id="pills-students" role="tabpanel" aria-labelledby="pills-students-tab">
-                        <h3 class="m-3">Course Students</h3>
+                        <div class="dashboard-area">
+                            <h3>Course Students</h3>
+                        </div>
                         {% for student in object.students.all %}
                             <div class="dashboard-area">
                                 <div class="dashboard-container product-card shadow-sm rounded">
                                     <div class="row align-items-center">
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 my-1">
                                             {% if student.avatar %}
                                         	    <img src="{{ student.avatar }}" alt="{{ student.first_name }} {{ student.last_name }}" class="product-image">
                                             {% else %}
                                                 <img src="{% static 'img/student_default.png' %}" alt="{{ student.first_name }} {{ student.last_name }}" class="product-image">
                                             {% endif %}
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 my-1">
                                             <h6 class="fw-bold">{{ student.first_name }} {{ student.last_name }}</h6>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 my-1">
                                             <span class="text-muted">Phone: {{ student.phone_number }}</span>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="" type="button" class="btn btn-primary"> See Profile <i class="fa-solid fa-eye fa-fw"></i></a>
+                                        <div class="col-md-3 my-1">
+                                            <a href="" type="button" class="btn btn-primary w-100"> See Profile <i class="fa-solid fa-eye fa-fw"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -91,17 +110,17 @@
                             <div class="dashboard-area">
                                 <div class="dashboard-container product-card shadow-sm w-100 rounded">
                                     <div class="row align-items-center">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 my-1">
                                             <h6 class="fw-bold">{{ assignment.title }}</h6>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 my-1">
                                             <span class="text-muted">{{ assignment.status }}</span>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="{% url 'dash-students-submissions-create' assignment.id %}" type="button" class="btn btn-outline-primary">Submit Answer</a>
+                                        <div class="col-md-3 my-1">
+                                            <a href="{% url 'dash-students-submissions-create' assignment.id %}" type="button" class="btn btn-outline-primary w-100">Submit Answer</a>
                                         </div>
-                                        <div class="col-md-3">
-                                            <a href="{% url 'dash-students-assignments-show' assignment.id %}" type="button" class="btn btn-primary"> My Submissions <i class="fa-solid fa-eye fa-fw"></i></a>
+                                        <div class="col-md-3 my-1">
+                                            <a href="{% url 'dash-students-assignments-show' assignment.id %}" type="button" class="btn btn-primary w-100"> My Submissions <i class="fa-solid fa-eye fa-fw"></i></a>
                                         </div>
                                     </div>
                                 </div>

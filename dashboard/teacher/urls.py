@@ -37,6 +37,23 @@ urlpatterns = [
         name='dash-teachers-courses-delete'
     ),
 
+    # contents urls
+    path(
+        'contents/create/<int:pk>/',
+        views.contents_create,
+        name='dash-teachers-contents-create'
+    ),
+    path(
+        'contents/<int:pk>/edit/',
+        views.contents_edit,
+        name='dash-teachers-contents-edit'
+    ),
+    path(
+        'contents/<int:pk>/delete/',
+        views.contents_delete,
+        name='dash-teachers-contents-delete'
+    ),
+
     # enrollments urls
     path(
         'enrollment/<int:pk>/accept/',

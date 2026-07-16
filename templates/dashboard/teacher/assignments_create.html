@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 	<div class="container">
-        <form method="post" action="{% url 'dash-teachers-assignments-create'  class %}" novalidate class="dash_form shadow-sm rounded" enctype="multipart/form-data">
+        <form method="post" action="{% url 'dash-teachers-assignments-create'  pk %}" novalidate class="dash_form shadow-sm rounded" enctype="multipart/form-data">
             <h1 class="text-center">Create New Assignment</h1>
             <br>
             {% csrf_token %}
